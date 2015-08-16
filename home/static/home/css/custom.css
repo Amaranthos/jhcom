@@ -1,0 +1,31 @@
+body {
+	background-color: #526685;
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.jumbotron {
+	margin-top: 78px;
+	background-color: #213758;
+}
+
+.navbar-inverse {
+	background-image: none !important;
+	background-color: #102340;
+}
+
+.navbar-inverse .navbar-brand {
+	color: #ca9674;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+	color: #cab974;
+}
+
+.dropdown-menu {
+	background-color: #102340;
+	color: #cab974;
+}
+
+.dropdown-menu>li>a {
+	color: #cab974;
+}

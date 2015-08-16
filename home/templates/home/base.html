@@ -1,0 +1,49 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<meta name="description" content="">
+		<meta name="author" content="Joshua Hodkinson">
+		<link rel="icon" href="{% static 'home/favicon.ico' %}">
+
+		<title>Joshua Hodkinson - {% block head_title %}{% endblock %}</title>
+
+		{% include 'home/css.html' %}
+
+		<style>
+			{% block style %}
+
+			{% endblock %}
+		</style>
+
+	</head>
+
+	<body>
+		<div id="fb-root"></div>
+
+		{% include 'home/navbar.html' %}
+
+			{% block content %}
+				
+			{% endblock %}
+		{% include 'home/js.html' %}
+
+	<div class="container">
+		<hr>
+		<footer>
+			<div class = "container">
+				<div class="fb-like" data-href="https://joshuahodkinson.com" data-layout="button" data-action="like" data-show-faces="true" data-share="true" style="vertical-align:super"></div>
+				<a href="https://twitter.com/share" class="twitter-share-button" data-url="www.joshuahodkinson.com">Tweet</a>
+  				<g:plusone></g:plusone>
+				<p>&copy; Joshua Hodkinson, joshuahodkinson.com 2015.</p>
+			</div>
+		</footer>
+	</div>
+	</body>
+</html>
