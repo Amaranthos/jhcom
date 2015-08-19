@@ -3,6 +3,14 @@ body {
 	color: rgba(255, 255, 255, 0.7);
 }
 
+.h1, .h2, .h3, h1, h2, h3 {
+	margin: 10px 5px;
+}
+
+p {
+	margin: 5px;
+}
+
 .jumbotron {
 	margin-top: 78px;
 	background-color: #213758;
@@ -29,3 +37,23 @@ body {
 .dropdown-menu>li>a {
 	color: #cab974;
 }
+
+.content {
+	margin: 5px;
+	padding: 10px;
+	background-color: #213758;
+	color: rgba(255, 255, 255, 0.7);
+	font-size: larger;
+}
+
+.btn .btn-block .btn-primary {
+	color: rgba(255, 255, 255, 0.7);
+}
+
+/*.footer {
+	width: 100%;
+	position: fixed;
+	bottom: 0px;
+	background-color: #102340;
+	padding-top: 10px;
+}*/

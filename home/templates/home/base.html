@@ -26,17 +26,14 @@
 
 	<body>
 		<div id="fb-root"></div>
-
 		{% include 'home/navbar.html' %}
 
-			{% block content %}
+		{% block content %}
 				
-			{% endblock %}
-		{% include 'home/js.html' %}
+		{% endblock %}
+			
 
-	<div class="container">
-		<hr>
-		<footer>
+		<footer class="footer">
 			<div class = "container">
 				<div class="fb-like" data-href="https://joshuahodkinson.com" data-layout="button" data-action="like" data-show-faces="true" data-share="true" style="vertical-align:super"></div>
 				<a href="https://twitter.com/share" class="twitter-share-button" data-url="www.joshuahodkinson.com">Tweet</a>
@@ -44,6 +41,6 @@
 				<p>&copy; Joshua Hodkinson, joshuahodkinson.com 2015.</p>
 			</div>
 		</footer>
-	</div>
+		{% include 'home/js.html' %}
 	</body>
 </html>
