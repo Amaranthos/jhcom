@@ -12,12 +12,18 @@
 		</div>
 
 		<div class="row">
-			<div class="col-sm-6 col-md-3">
-				<div class="content">
-				   	<a href="#"><img class="thumbnail" src="#"></a>
-				   	<a class="btn btn-block btn-primary" href="#" role="button"><p style="font-size:larger">Name</p></a>
-				</div>
-			</div>
+			{%if list%}
+				{% for item in list %}
+					<div class="col-sm-6 col-md-3">
+						<div class="content">
+							<div class="thumbnail">
+						   		<a href="/games/{{item.id}}/"><img src="{% static item.thumbnail %}"></a>
+							</div>
+						   	<a class="btn btn-block btn-primary" href="/games/{{item.id}}/" role="button"><p style="font-size:larger">{{item.title}}</p></a>
+						</div>
+					</div>
+				{%endfor%}
+			{%endif%}
 		</div>
 	</div>
 {%endblock%}
