@@ -1,0 +1,76 @@
+body {
+	background-color: #526685;
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.h1, .h2, .h3, h1, h2, h3 {
+	margin: 10px 5px;
+}
+
+p {
+	margin: 5px;
+}
+
+.container .jumbotron {
+	border-radius: 0;
+}
+
+.jumbotron {
+	margin: 78px 5px 15px;
+	background-color: #213758;
+}
+
+.navbar-inverse {
+	background-image: none !important;
+	background-color: #102340;
+	border-color: #102340;
+}
+
+.navbar-inverse .navbar-brand {
+	color: #ca9674;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+	color: #cab974;
+}
+
+.navbar-inverse .navbar-toggle {
+	border-color: #cab974;
+}
+
+.navbar-inverse .navbar-toggle .icon-bar {
+	background-color: #ca9674;
+}
+
+.navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+	color: #cab974;
+}
+
+.dropdown-menu {
+	background-color: #102340;
+	color: #cab974;
+}
+
+.dropdown-menu>li>a {
+	color: #cab974;
+}
+
+.content {
+	margin: 15px 5px;
+	padding: 10px;
+	background-color: #213758;
+	color: rgba(255, 255, 255, 0.7);
+	font-size: larger;
+}
+
+.btn .btn-block .btn-primary {
+	color: rgba(255, 255, 255, 0.7);
+}
+
+/*.footer {
+	width: 100%;
+	position: fixed;
+	bottom: 0px;
+	background-color: #102340;
+	padding-top: 10px;
+}*/

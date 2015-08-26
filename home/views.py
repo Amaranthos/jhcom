@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
 
 from .models import Game, App, Tool, Library, Site
@@ -13,7 +13,8 @@ def games(request):
 		})
 
 def game(request, id):
-	return render(request, "home/game.html", {})
+	game = get_object_or_404(Game, pk=id)
+	return render(request, "home/game.html", {'item' : game})
 
 def apps(request):
 	list = App.objects.order_by("title")
@@ -22,7 +23,8 @@ def apps(request):
 		})
 
 def app(request, id):
-	return render(request, "home/app.html", {})
+	app = get_object_or_404(App, pk=id)
+	return render(request, "home/app.html", {'item' : app})
 
 def tools(request):
 	list = Tool.objects.order_by("title")
@@ -30,11 +32,19 @@ def tools(request):
 			"list" : list,
 		})
 
+def tool(request, id):
+	tool = get_object_or_404(Tool, pk=id)
+	return render(request, "home/tool.html", {'item' : tool})
+
 def libraries(request):
 	list = Library.objects.order_by("title")
 	return render(request, "home/libraries.html", {
 			"list" : list,
 		})
+
+def library(request, id):
+	library = get_object_or_404(Library, pk=id)
+	return render(request, "home/library.html", {'item' : library})
 
 def web(request):
 	list = Site.objects.order_by("title")
