@@ -3,7 +3,7 @@ from django.contrib import admin
 
 urlpatterns = [
 	url(r'^$', 'home.views.home', name='home'),
-	# url(r'^blog/$', 'blog.views.home', name='blog'),
+	url(r'^blog/$', 'blog.views.blog', name='blog'),
 	url(r'^games/$', 'home.views.games', name='games'),
 	url(r'^games/(?P<id>[0-9]+)/$', 'home.views.game', name='game'),
 	url(r'^apps/$', 'home.views.apps', name='apps'),
