@@ -63,6 +63,10 @@ p {
 	font-size: larger;
 }
 
+.content>ul>li>a {
+	color: #cab974;
+}
+
 .btn .btn-block .btn-primary {
 	color: rgba(255, 255, 255, 0.7);
 }

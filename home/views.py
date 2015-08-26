@@ -7,49 +7,44 @@ def home(request):
 	return render(request, "home/home.html", {})
 
 def games(request):
-	list = Game.objects.order_by("title")
 	return render(request, "home/games.html", {
-			"list" : list,
+			"list" : Game.objects.all(),
 		})
 
-def game(request, id):
+def game(request, id, slug):
 	game = get_object_or_404(Game, pk=id)
 	return render(request, "home/game.html", {'item' : game})
 
 def apps(request):
-	list = App.objects.order_by("title")
 	return render(request, "home/apps.html", {
-			"list" : list,
+			"list" : App.objects.all(),
 		})
 
-def app(request, id):
+def app(request, id, slug):
 	app = get_object_or_404(App, pk=id)
 	return render(request, "home/app.html", {'item' : app})
 
 def tools(request):
-	list = Tool.objects.order_by("title")
 	return render(request, "home/tools.html", {
-			"list" : list,
+			"list" : Tool.objects.all(),
 		})
 
-def tool(request, id):
+def tool(request, id, slug):
 	tool = get_object_or_404(Tool, pk=id)
 	return render(request, "home/tool.html", {'item' : tool})
 
 def libraries(request):
-	list = Library.objects.order_by("title")
 	return render(request, "home/libraries.html", {
-			"list" : list,
+			"list" : Library.objects.all(),
 		})
 
-def library(request, id):
+def library(request, id, slug):
 	library = get_object_or_404(Library, pk=id)
 	return render(request, "home/library.html", {'item' : library})
 
 def web(request):
-	list = Site.objects.order_by("title")
 	return render(request, "home/web.html", {
-			"list" : list,
+			"list" : Web.objects.all(),
 		})
 
 def art(request):
