@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Game, App, Tool, Library, Site
+from .models import Game, App, Tool, Library, Site, Contributor, Link
 
 class GameAdmin(admin.ModelAdmin):
 	list_display = ["id", "title"]
@@ -27,8 +27,19 @@ class SiteAdmin(admin.ModelAdmin):
 	class Meta:
 		model = Site
 
+class ContributorAdmin(admin.ModelAdmin):
+	list_display = ['name']
+	class Meta:
+		model = Contributor
+
+class LinkAdmin(admin.ModelAdmin):
+	list_display = ['name']
+	class Meta:
+		model = Link
+
 admin.site.register(Game, GameAdmin)
 admin.site.register(App, AppAdmin)
 admin.site.register(Tool, ToolAdmin)
 admin.site.register(Library, LibraryAdmin)
 admin.site.register(Site, SiteAdmin)
+admin.site.register(Link, LinkAdmin)

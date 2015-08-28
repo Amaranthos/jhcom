@@ -44,8 +44,9 @@ def library(request, id, slug):
 
 def web(request):
 	return render(request, "home/web.html", {
-			"list" : Web.objects.all(),
+			"list" : Site.objects.all(),
 		})
 
 def art(request):
 	return render(request, "home/art.html", {})
+	

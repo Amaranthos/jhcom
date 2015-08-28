@@ -15,19 +15,20 @@
 				<div class="content">
 					<h3>Contributors</h3>
 
-					<!-- For here -->
-					<li>
-						<ul>
-							
-						</ul>
-					</li>
+					{% for contributor in item.contributors.all %}
+						<li>
+							<ul>
+								<a href="{{contributor.link}}">{{contributor.name}}</a>
+							</ul>
+						</li>
+					{% endfor %}
 				</div>
 			</div>
 
 			<div class="col-md-4">
 				<div class="content">
 					<h3>Description</h3>
-					
+					<p>{{item.description}}</p>
 				</div>
 			</div>
 
@@ -35,12 +36,13 @@
 				<div class="content">
 					<h3>Links</h3>
 
-					<!-- For here -->
-					<li>
-						<ul>
-							
-						</ul>
-					</li>
+					{% for link in item.links.all %}
+						<li>
+							<ul>
+								<a href="{{link.link}}">{{link.name}}</a>
+							</ul>
+						</li>
+					{% endfor %}
 				</div>
 			</div>		
 		</div>

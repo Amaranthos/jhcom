@@ -9,6 +9,9 @@ class Game(models.Model):
 	slug = models.SlugField(max_length=50, unique=True, default=title)
 	video = models.URLField()
 	thumbnail = models.CharField(max_length=40)
+	description = models.TextField()
+	contributors = models.ManyToManyField('home.Contributor')
+	links = models.ManyToManyField('home.Link')
 
 	def __str__(self):
 		return self.title;
@@ -22,6 +25,9 @@ class App(models.Model):
 	slug = models.SlugField(max_length=50, unique=True, default=title)
 	video = models.URLField()
 	thumbnail = models.CharField(max_length=40)
+	description = models.TextField()
+	contributors = models.ManyToManyField('home.Contributor')
+	links = models.ManyToManyField('home.Link')
 
 	def __str__(self):
 		return self.title;
@@ -35,6 +41,9 @@ class Tool(models.Model):
 	slug = models.SlugField(max_length=50, unique=True, default=title)
 	video = models.URLField()
 	thumbnail = models.CharField(max_length=40)
+	description = models.TextField()
+	contributors = models.ManyToManyField('home.Contributor')
+	links = models.ManyToManyField('home.Link')
 
 	def __str__(self):
 		return self.title;
@@ -46,8 +55,10 @@ class Tool(models.Model):
 class Library(models.Model):
 	title = models.CharField(max_length=50, unique=True)
 	slug = models.SlugField(max_length=50, unique=True, default=title)
-	link = models.URLField()
 	thumbnail = models.CharField(max_length=40)
+	description = models.TextField()
+	contributors = models.ManyToManyField('home.Contributor')
+	links = models.ManyToManyField('home.Link')
 
 	def __str__(self):
 		return self.title;
@@ -60,6 +71,7 @@ class Library(models.Model):
 class Site(models.Model):
 	title = models.CharField(max_length=50, unique=True)
 	thumbnail = models.CharField(max_length=40)
+	link = models.URLField()
 
 	def __str__(self):
 		return self.title;
@@ -69,3 +81,17 @@ class Art(models.Model):
 
 	def __str__(self):
 		return self.title;
+
+class Contributor(models.Model):
+	name = models.CharField(max_length=50, unique=True)
+	link = models.URLField()
+
+	def __str__(self):
+		return self.name
+
+class Link(models.Model):
+	name = models.CharField(max_length=50, unique=True)
+	link = models.URLField()
+
+	def __str__(self):
+		return self.name
