@@ -18,9 +18,9 @@
 					<div class="col-sm-6 col-md-3">
 						<div class="content">
 							<div class="thumbnail">
-						   		<a href="/libraries/{{item.id}}/{{item.slug}}/"><img src="{% static item.thumbnail %}"></a>
+						   		<a href="{{item.get_absolute_url}}"><img src="{% static item.thumbnail %}"></a>
 							</div>
-						   	<a class="btn btn-block btn-primary" href="/libraries/{{item.id}}/{{item.slug}}/" role="button"><p style="font-size:larger">{{item.title}}</p></a>
+						   	<a class="btn btn-block btn-primary" href="{{item.get_absolute_url}}" role="button"><p style="font-size:larger">{{item.title}}</p></a>
 						</div>
 					</div>
 				{%endfor%}

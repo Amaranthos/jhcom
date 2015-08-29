@@ -4,21 +4,25 @@ from .models import Game, App, Tool, Library, Site, Contributor, Link
 
 class GameAdmin(admin.ModelAdmin):
 	list_display = ["id", "title"]
+	prepopulated_fields = {'slug' : ('title',)}
 	class Meta:
 		model = Game
 
 class AppAdmin(admin.ModelAdmin):
 	list_display = ["id", "title"]
+	prepopulated_fields = {'slug' : ('title',)}
 	class Meta:
 		model = App
 
 class ToolAdmin(admin.ModelAdmin):
 	list_display = ["id", "title"]
+	prepopulated_fields = {'slug' : ('title',)}
 	class Meta:
 		model = Tool
 
 class LibraryAdmin(admin.ModelAdmin):
 	list_display = ["id", "title"]
+	prepopulated_fields = {'slug' : ('title',)}
 	class Meta:
 		model = Library
 
@@ -42,4 +46,5 @@ admin.site.register(App, AppAdmin)
 admin.site.register(Tool, ToolAdmin)
 admin.site.register(Library, LibraryAdmin)
 admin.site.register(Site, SiteAdmin)
+admin.site.register(Contributor, ContributorAdmin)
 admin.site.register(Link, LinkAdmin)

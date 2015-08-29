@@ -13,20 +13,29 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Blog',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
-                ('title', models.CharField(unique=True, max_length=50)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('title', models.CharField(max_length=50)),
                 ('slug', models.SlugField(unique=True)),
                 ('body', models.TextField()),
-                ('posted', models.DateField(db_index=True, auto_now_add=True)),
+                ('posted', models.DateField(auto_now_add=True)),
             ],
+            options={
+                'ordering': ['-posted'],
+                'verbose_name_plural': 'Posts',
+                'verbose_name': 'Post',
+            },
         ),
         migrations.CreateModel(
             name='Category',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
                 ('title', models.CharField(db_index=True, max_length=50)),
                 ('slug', models.SlugField()),
             ],
+            options={
+                'verbose_name_plural': 'Categories',
+                'verbose_name': 'Category',
+            },
         ),
         migrations.AddField(
             model_name='blog',

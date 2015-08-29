@@ -13,17 +13,16 @@
 		</div>
 
 		<div class="row">
-				{% if posts %}
-					{% for post in posts %}
-			<div class="col-xs-12">
+			{% if posts %}
+				{% for post in posts %}
+					<div class="col-xs-12">
 						<div class="content">
-							<h2><a href="#" style="color:#cab974;">{{post.title}}</a><small>&nbsp;&nbsp;{{post.posted}}</small></h2>
+							<h2><a href="{{post.get_absolute_url}}" style="color:#cab974;">{{post.title}}</a><small>&nbsp;&nbsp;{{post.posted}}</small></h2>
 							<p>{{post.body}}</p>
 						</div>
-			</div>
-					{% endfor %}
-				{% endif %}
-				
+					</div>
+				{% endfor %}
+			{% endif %}
 		</div>
 
 		<div class="row content" style="margin-top:78px;">

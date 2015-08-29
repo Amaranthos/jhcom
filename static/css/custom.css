@@ -67,6 +67,10 @@ p {
 	color: #cab974;
 }
 
+.content>h1>a{
+	color: #cab974;	
+}
+
 .btn .btn-block .btn-primary {
 	color: rgba(255, 255, 255, 0.7);
 }

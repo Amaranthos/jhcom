@@ -2,9 +2,17 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
 
 from .models import Game, App, Tool, Library, Site
+from blog.models import Blog
 
 def home(request):
-	return render(request, "home/home.html", {})
+	return render(request, "home/home.html", {
+			'blog' : Blog.objects.all().order_by('-posted')[0],
+			'game' : Game.objects.all().order_by('-posted')[0],
+			'app' : App.objects.all().order_by('-posted')[0],
+			'tool' : Tool.objects.all().order_by('-posted')[0],
+			'lib' : Library.objects.all().order_by('-posted')[0],
+			# 'tut' : Game.objects.all().order_by('-posted')[:1],
+		})
 
 def games(request):
 	return render(request, "home/games.html", {
