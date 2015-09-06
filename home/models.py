@@ -1,14 +1,11 @@
 from django.db import models
-from django.conf import settings
 from django.db.models import permalink
-
-import os
 
 class Game(models.Model):
 	title = models.CharField(max_length=50, unique=True)
 	slug = models.SlugField(max_length=50, unique=True, default=title)
 	video = models.URLField()
-	thumbnail = models.CharField(max_length=40)
+	thumbnail = models.ImageField(upload_to = 'home/img/games/thumbnails/')
 	description = models.TextField()
 	contributors = models.ManyToManyField('home.Contributor', blank=True)
 	links = models.ManyToManyField('home.Link', blank=True)
@@ -29,7 +26,7 @@ class App(models.Model):
 	title = models.CharField(max_length=50, unique=True)
 	slug = models.SlugField(max_length=50, unique=True, default=title)
 	video = models.URLField()
-	thumbnail = models.CharField(max_length=40)
+	thumbnail = models.ImageField(upload_to = 'home/img/apps/thumbnails/')
 	description = models.TextField()
 	contributors = models.ManyToManyField('home.Contributor', blank=True)
 	links = models.ManyToManyField('home.Link', blank=True)
@@ -50,7 +47,7 @@ class Tool(models.Model):
 	title = models.CharField(max_length=50, unique=True)
 	slug = models.SlugField(max_length=50, unique=True, default=title)
 	video = models.URLField()
-	thumbnail = models.CharField(max_length=40)
+	thumbnail = models.ImageField(upload_to = 'home/img/tools/thumbnails/')
 	description = models.TextField()
 	contributors = models.ManyToManyField('home.Contributor', blank=True)
 	links = models.ManyToManyField('home.Link', blank=True)
@@ -70,7 +67,7 @@ class Tool(models.Model):
 class Library(models.Model):
 	title = models.CharField(max_length=50, unique=True)
 	slug = models.SlugField(max_length=50, unique=True, default=title)
-	thumbnail = models.CharField(max_length=40)
+	thumbnail = models.ImageField(upload_to = 'home/img/libraries/thumbnails/')
 	description = models.TextField()
 	contributors = models.ManyToManyField('home.Contributor', blank=True)
 	links = models.ManyToManyField('home.Link', blank=True)
@@ -90,7 +87,7 @@ class Library(models.Model):
 
 class Site(models.Model):
 	title = models.CharField(max_length=50, unique=True)
-	thumbnail = models.CharField(max_length=40)
+	thumbnail = models.ImageField(upload_to = 'home/img/sites/thumbnails/')
 	link = models.URLField()
 
 	def __str__(self):
