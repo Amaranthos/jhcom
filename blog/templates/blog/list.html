@@ -1,5 +1,6 @@
 {% extends "base.html"%}
 {% load staticfiles %}
+{% load  markdown_deux_tags %}
 
 {%block head_title%}
 	Blogs>{{list.title}}
@@ -17,7 +18,7 @@
 					<div class="col-xs-12">
 						<div class="content">
 							<h2><a href="{{post.get_absolute_url}}" style="color:#cab974;">{{post.title}}</a><small>&nbsp;&nbsp;{{post.posted}}</small></h2>
-							<p>{{post.body}}</p>
+							<p>{{post.body|markdown}}</p>
 						</div>
 					</div>
 				{% endfor %}

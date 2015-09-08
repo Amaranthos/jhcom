@@ -1,8 +1,42 @@
-from django.test import TestCase
+from django.test import TestCase, LiveServerTestCase, Client
 from django.utils import timezone
 from django.utils.text import slugify
 
 from .models import Game, App, Tool, Library, Site, Art, Tutorial, Contributor, Link
+
+class AdminTest(LiveServerTestCase):
+	fixtures = ['users.json']
+
+	def setUp(self):
+		self.client = Client()
+
+	def test_Login(self):
+		response = self.client.get('/admin/', follow=True)
+		self.assertEquals(response.status_code, 200)
+		
+		self.assertTrue(b"Log in" in response.content)
+
+		self.client.login(username='josh', password='123')
+
+		response = self.client.get('/admin/', follow=True)
+		self.assertEquals(response.status_code, 200)
+
+		self.assertTrue(b"Log out" in response.content)
+
+	def test_Logout(self):
+		self.client.login(username='josh', password='123')
+
+		response = self.client.get('/admin/', follow=True)
+		self.assertEquals(response.status_code, 200)
+
+		self.assertTrue(b"Log out" in response.content)
+
+		self.client.logout()
+
+		response = self.client.get('/admin/', follow=True)
+		self.assertEquals(response.status_code, 200)
+
+		self.assertTrue(b"Log in" in response.content)
 
 class GameTest(TestCase):
 	def test_CreateGame(self):

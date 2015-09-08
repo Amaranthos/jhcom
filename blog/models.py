@@ -1,6 +1,8 @@
 from django.db import models
 from django.db.models import permalink
 
+
+
 class Blog(models.Model):
 	title = models.CharField(max_length=50)
 	slug = models.SlugField(max_length=50, unique=True)

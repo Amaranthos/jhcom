@@ -37,6 +37,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'markdown_deux',
+    'pagedown',
     'home',
     'blog',
 )
@@ -111,3 +113,7 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media", "root")
+
+FIXTURE_DIRS = (
+        os.path.join(BASE_DIR, "fixtures"),
+    )
