@@ -49,6 +49,15 @@
 			<div class="col-sm-6">
 				<div class="content">
 					<h2>Date</h2>
+					{% if dates %}
+						<ul>
+							{% for d in dates %}
+								<li>
+									<a href="{% url 'blog' %}date/{{d.year}}/{{d.month}}/">{{d|date:"M Y"}}</a>
+								</li>
+							{% endfor %}
+						</ul>
+					{% endif %}
 				</div>				
 			</div>
 		</div>
