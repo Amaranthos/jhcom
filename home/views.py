@@ -1,18 +1,50 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
+from django.core.exceptions import ObjectDoesNotExist
 
 from .models import Game, App, Tool, Library, Site
 from blog.models import Blog
 
 def home(request):
+	try:
+		blog = Blog.objects.latest('id')
+	except ObjectDoesNotExist:
+		blog = None
+
+	try:
+		game = Game.objects.latest('id')
+	except ObjectDoesNotExist:
+		game = None
+
+	try:
+		app = App.objects.latest('id')
+	except ObjectDoesNotExist:
+		app = None
+
+	try:
+		tool = Tool.objects.latest('id')
+	except ObjectDoesNotExist:
+		tool = None
+
+	try:
+		lib = Library.objects.latest('id')
+	except ObjectDoesNotExist:
+		lib = None
+
+	try:
+		tut = Game.objects.latest('id')
+	except ObjectDoesNotExist:
+		tut = None
+
 	return render(request, "home/home.html", {
-			'blog' : Blog.objects.all().order_by('-posted')[0],
-			'game' : Game.objects.all().order_by('-posted')[0],
-			'app' : App.objects.all().order_by('-posted')[0],
-			'tool' : Tool.objects.all().order_by('-posted')[0],
-			'lib' : Library.objects.all().order_by('-posted')[0],
-			# 'tut' : Game.objects.all().order_by('-posted')[:1],
+			'blog' : blog,
+			'game' : game,
+			'app' : app,
+			'tool' : tool,
+			'lib' : lib,
+			'tut' : tut,
 		})
+
 
 def games(request):
 	return render(request, "home/games.html", {

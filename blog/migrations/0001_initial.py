@@ -7,13 +7,14 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('sites', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Blog',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(auto_created=True, primary_key=True, verbose_name='ID', serialize=False)),
                 ('title', models.CharField(max_length=50)),
                 ('slug', models.SlugField(unique=True)),
                 ('body', models.TextField()),
@@ -28,11 +29,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Category',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(auto_created=True, primary_key=True, verbose_name='ID', serialize=False)),
                 ('title', models.CharField(db_index=True, max_length=50)),
                 ('slug', models.SlugField()),
             ],
             options={
+                'ordering': ['title'],
                 'verbose_name_plural': 'Categories',
                 'verbose_name': 'Category',
             },
@@ -41,5 +43,10 @@ class Migration(migrations.Migration):
             model_name='blog',
             name='category',
             field=models.ManyToManyField(to='blog.Category'),
+        ),
+        migrations.AddField(
+            model_name='blog',
+            name='site',
+            field=models.ForeignKey(to='sites.Site'),
         ),
     ]

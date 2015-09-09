@@ -38,44 +38,56 @@ code{
 		</div>
 
 		<div class="row">
-			<div class="col-md-4">
-				<div class="content">
-					<a href="{{blog.get_absolute_url}}" style="color:#cab974;"><h2>{{blog.title}}</h2></a>
-					<p>{{blog.body|markdown}}</p>
+			{% if blog %}
+				<div class="col-md-4">
+					<div class="content">
+						<a href="{{blog.get_absolute_url}}" style="color:#cab974;"><h2>{{blog.title}}</h2></a>
+						<p>{{blog.body|markdown}}</p>
+					</div>
 				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="content">
-					<a href="#" style="color:#cab974;"><h2>Recent tut</h2></a>
-					<p></p>
+			{% endif %}
+			{% if tut %}
+				<div class="col-md-4">
+					<div class="content">
+						<a href="{{tut.get_absolute_url}}" style="color:#cab974;"><h2>{{tut.title}}</h2></a>
+						<p>{{tut.description}}</p>
+					</div>
 				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="content">
-					<a href="{{game.get_absolute_url}}" style="color:#cab974;"><h2>{{game.title}}</h2></a>
-					<p>{{game.description}}</p>
-				</div>
-			</div>
+			{% endif %}
+			{% if game %}
+				<div class="col-md-4">
+					<div class="content">
+						<a href="{{game.get_absolute_url}}" style="color:#cab974;"><h2>{{game.title}}</h2></a>
+						<p>{{game.description}}</p>
+					</div>
+				</div>			
+			{% endif %}
 		</div>
 		<div class="row">
-			<div class="col-md-4">
-				<div class="content">
-					<a href="{{app.get_absolute_url}}" style="color:#cab974;"><h2>{{app.title}}</h2></a>
-					<p>{{app.description}}</p>
+			{% if app %}
+				<div class="col-md-4">
+					<div class="content">
+						<a href="{{app.get_absolute_url}}" style="color:#cab974;"><h2>{{app.title}}</h2></a>
+						<p>{{app.description}}</p>
+					</div>
 				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="content">
-					<a href="{{tool.get_absolute_url}}" style="color:#cab974;"><h2>{{tool.title}}</h2></a>
-					<p>{{tool.description}}</p>
+			{% endif %}
+			{% if tool %}
+				<div class="col-md-4">
+					<div class="content">
+						<a href="{{tool.get_absolute_url}}" style="color:#cab974;"><h2>{{tool.title}}</h2></a>
+						<p>{{tool.description}}</p>
+					</div>
 				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="content">
-					<a href="{{lib.get_absolute_url}}" style="color:#cab974;"><h2>{{lib.title}}</h2></a>
-					<p>{{lib.0.description}}</p>
+			{% endif %}
+			{% if lib %}
+				<div class="col-md-4">
+					<div class="content">
+						<a href="{{lib.get_absolute_url}}" style="color:#cab974;"><h2>{{lib.title}}</h2></a>
+						<p>{{lib.0.description}}</p>
+					</div>
 				</div>
-			</div>
+			{% endif %}
 		</div>		
 	</div>
 {%endblock%}

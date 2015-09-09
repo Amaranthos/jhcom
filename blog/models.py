@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import permalink
+from django.contrib.sites.models import Site
 
 
 
@@ -9,7 +10,7 @@ class Blog(models.Model):
 	body = models.TextField()
 	posted = models.DateField(auto_now_add=True)
 	category = models.ManyToManyField('blog.Category')
-
+	
 	def __str__(self):
 		return self.title
 
