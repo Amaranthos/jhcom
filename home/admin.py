@@ -1,3 +1,5 @@
+from pagedown.widgets import AdminPagedownWidget
+from django.db import models
 from django.contrib import admin
 
 from .models import Game, App, Tool, Library, Site, Contributor, Link
@@ -5,24 +7,36 @@ from .models import Game, App, Tool, Library, Site, Contributor, Link
 class GameAdmin(admin.ModelAdmin):
 	list_display = ["id", "title"]
 	prepopulated_fields = {'slug' : ('title',)}
+	formfield_overrides = {
+		models.TextField: {'widget': AdminPagedownWidget },
+	}
 	class Meta:
 		model = Game
 
 class AppAdmin(admin.ModelAdmin):
 	list_display = ["id", "title"]
 	prepopulated_fields = {'slug' : ('title',)}
+	formfield_overrides = {
+		models.TextField: {'widget': AdminPagedownWidget },
+	}
 	class Meta:
 		model = App
 
 class ToolAdmin(admin.ModelAdmin):
 	list_display = ["id", "title"]
 	prepopulated_fields = {'slug' : ('title',)}
+	formfield_overrides = {
+		models.TextField: {'widget': AdminPagedownWidget },
+	}
 	class Meta:
 		model = Tool
 
 class LibraryAdmin(admin.ModelAdmin):
 	list_display = ["id", "title"]
 	prepopulated_fields = {'slug' : ('title',)}
+	formfield_overrides = {
+		models.TextField: {'widget': AdminPagedownWidget },
+	}
 	class Meta:
 		model = Library
 

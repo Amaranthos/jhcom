@@ -1,13 +1,29 @@
 from django.shortcuts import get_object_or_404, render
-from datetime import date
+import datetime
 
-from .models import Blog, Category
+from .models import Blog, Category, Tag
 from calendar import month_name
 
 def blog(request):
+
+	posts = Blog.objects.dates('posted', 'month')
+	dates = {}
+
+	print (posts)
+
+	# for i, year in enumerate(years):
+	# 	months = posts.filter(posted__year=year.year).dates('posted', 'month')
+	# 	dates[i] = months
+
+	# dates = sorted(dates.items(), reverse=True)
+
+	# print(dates[0])
+
 	return render(request, "blog/home.html", {
 			'categories' : Category.objects.all(),
-			'dates' : Blog.objects.all().values_list('posted', flat=True).order_by('posted'),
+			'tags' : Tag.objects.all(),
+			# 'dates' : Blog.objects.all().values_list('posted', flat=True).order_by('posted'),
+			'dates' : posts,
 			'posts' : Blog.objects.all().order_by('posted')[:5]
 		})
 
@@ -28,4 +44,12 @@ def category(request, id, slug):
 			'title' : category.title,
 			'list' : category,
 			'posts' : Blog.objects.filter(category=category)
+		})
+
+def tag(request, id, slug):
+	tag = get_object_or_404(Tag, pk=id)
+	return render(request, "blog/list.html", {
+			'title' : tag.title,
+			'list' : tag,
+			'posts' : Blog.objects.filter(tags=tag)
 		})

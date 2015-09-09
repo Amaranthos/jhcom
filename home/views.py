@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 
-from .models import Game, App, Tool, Library, Site
+from .models import Game, App, Tool, Library, Site, Tutorial
 from blog.models import Blog
 
 def home(request):
@@ -32,7 +32,7 @@ def home(request):
 		lib = None
 
 	try:
-		tut = Game.objects.latest('id')
+		tut = Tutorial.objects.latest('id')
 	except ObjectDoesNotExist:
 		tut = None
 

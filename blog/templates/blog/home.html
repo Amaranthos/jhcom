@@ -31,7 +31,7 @@
 		</div>
 
 		<div class="row">
-			<div class="col-sm-6">
+			<div class="col-sm-4">
 				<div class="content">
 					<h2>Categories</h2>
 					{% if categories %}
@@ -43,10 +43,23 @@
 							{% endfor %}
 						</ul>
 					{% endif %}
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="content">
+					<h2>Tags</h2>
+					{% if tags %}
+						<ul>
+							{% for tag in tags %}
+								<li>
+									<a href="{{tag.get_absolute_url}}">{{tag.title}}</a>
+								</li>
+							{% endfor %}
+						</ul>
+					{% endif %}
 				</div>				
 			</div>
-
-			<div class="col-sm-6">
+			<div class="col-sm-4">
 				<div class="content">
 					<h2>Date</h2>
 					{% if dates %}

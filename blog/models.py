@@ -9,7 +9,8 @@ class Blog(models.Model):
 	slug = models.SlugField(max_length=50, unique=True)
 	body = models.TextField()
 	posted = models.DateField(auto_now_add=True)
-	category = models.ManyToManyField('blog.Category')
+	category = models.ForeignKey('blog.Category', blank=True, null=True)
+	tags = models.ManyToManyField('blog.Tag')
 	
 	def __str__(self):
 		return self.title
@@ -25,8 +26,8 @@ class Blog(models.Model):
 
 
 class Category(models.Model):
-	title = models.CharField(max_length = 50, db_index=True)
-	slug = models.SlugField(max_length=50, db_index=True)
+	title = models.CharField(max_length = 50)
+	slug = models.SlugField(max_length=50)
 
 	def __str__(self):
 		return self.title
@@ -38,4 +39,20 @@ class Category(models.Model):
 	class Meta:
 		verbose_name = "Category"
 		verbose_name_plural = "Categories"
+		ordering = ["title"]
+
+class Tag(models.Model):
+	title = models.CharField(max_length = 50, db_index=True)
+	slug = models.SlugField(max_length=50)
+
+	def __str__(self):
+		return self.title
+
+	@permalink
+	def get_absolute_url(self):
+		return ('blog-tag', None, {'slug':self.slug, 'id':self.id,})
+
+	class Meta:
+		verbose_name = "Tag"
+		verbose_name_plural = "Tags"
 		ordering = ["title"]
