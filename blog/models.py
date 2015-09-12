@@ -1,16 +1,13 @@
 from django.db import models
 from django.db.models import permalink
-from django.contrib.sites.models import Site
-
-
 
 class Blog(models.Model):
 	title = models.CharField(max_length=50)
 	slug = models.SlugField(max_length=50, unique=True)
 	body = models.TextField()
 	posted = models.DateField(auto_now_add=True)
-	category = models.ForeignKey('blog.Category', blank=True, null=True)
-	tags = models.ManyToManyField('blog.Tag')
+	category = models.ForeignKey('blog.Category')
+	tags = models.ManyToManyField('blog.Tag', blank=True)
 	
 	def __str__(self):
 		return self.title

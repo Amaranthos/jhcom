@@ -35,7 +35,6 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'markdown_deux',
@@ -88,8 +87,6 @@ DATABASES = {
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
-
-SITE_ID = 1
 
 LANGUAGE_CODE = 'en-us'
 

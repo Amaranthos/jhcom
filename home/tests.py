@@ -2,7 +2,7 @@ from django.test import TestCase, LiveServerTestCase, Client
 from django.utils import timezone
 from django.utils.text import slugify
 
-from .models import Game, App, Tool, Library, Site, Art, Tutorial, Contributor, Link
+from .models import Game, App, Tool, Library, Website, Art, Tutorial, Contributor, Link
 
 class AdminTest(LiveServerTestCase):
 	fixtures = ['users.json']
@@ -139,12 +139,12 @@ class LibraryTest(TestCase):
 class SiteTest(TestCase):
 	def test_CreateSite(self):
 		
-		site = Site()
+		site = Website()
 		site.title = "Test Site"
 
 		site.save()
 
-		sites = Site.objects.all()
+		sites = Website.objects.all()
 		self.assertEquals(len(sites),1)
 		self.assertEquals(sites[0], site)
 

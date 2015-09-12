@@ -85,7 +85,7 @@ class Library(models.Model):
 		verbose_name_plural = "Libraries"
 
 
-class Site(models.Model):
+class Website(models.Model):
 	title = models.CharField(max_length=50, unique=True)
 	thumbnail = models.ImageField(upload_to = 'home/img/sites/thumbnails/')
 	link = models.URLField()

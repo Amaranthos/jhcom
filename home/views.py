@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 
-from .models import Game, App, Tool, Library, Site, Tutorial
+from .models import Game, App, Tool, Library, Website, Tutorial
 from blog.models import Blog
 
 def home(request):

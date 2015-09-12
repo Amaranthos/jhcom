@@ -2,7 +2,7 @@ from pagedown.widgets import AdminPagedownWidget
 from django.db import models
 from django.contrib import admin
 
-from .models import Game, App, Tool, Library, Site, Contributor, Link
+from .models import Game, App, Tool, Library, Website, Contributor, Link
 
 class GameAdmin(admin.ModelAdmin):
 	list_display = ["id", "title"]
@@ -40,10 +40,10 @@ class LibraryAdmin(admin.ModelAdmin):
 	class Meta:
 		model = Library
 
-class SiteAdmin(admin.ModelAdmin):
+class WebsiteAdmin(admin.ModelAdmin):
 	list_display = ["id", "title"]
 	class Meta:
-		model = Site
+		model = Website
 
 class ContributorAdmin(admin.ModelAdmin):
 	list_display = ['name']
@@ -59,6 +59,6 @@ admin.site.register(Game, GameAdmin)
 admin.site.register(App, AppAdmin)
 admin.site.register(Tool, ToolAdmin)
 admin.site.register(Library, LibraryAdmin)
-admin.site.register(Site, SiteAdmin)
+admin.site.register(Website, WebsiteAdmin)
 admin.site.register(Contributor, ContributorAdmin)
 admin.site.register(Link, LinkAdmin)
