@@ -9,20 +9,9 @@ def blog(request):
 	posts = Blog.objects.dates('posted', 'month')
 	dates = {}
 
-	print (posts)
-
-	# for i, year in enumerate(years):
-	# 	months = posts.filter(posted__year=year.year).dates('posted', 'month')
-	# 	dates[i] = months
-
-	# dates = sorted(dates.items(), reverse=True)
-
-	# print(dates[0])
-
 	return render(request, "blog/home.html", {
 			'categories' : Category.objects.all(),
 			'tags' : Tag.objects.all(),
-			# 'dates' : Blog.objects.all().values_list('posted', flat=True).order_by('posted'),
 			'dates' : posts,
 			'posts' : Blog.objects.all().order_by('posted')[:5]
 		})

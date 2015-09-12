@@ -2,37 +2,62 @@ from django.test import TestCase, LiveServerTestCase, Client
 from django.utils import timezone
 from django.utils.text import slugify
 
-from .models import Blog, Category
+from .models import Blog, Category, Tag
 
-class AdminTest(LiveServerTestCase):
-	fixtures = ['users.json']
+import factory.django
 
+class CategoryFactory(factory.django.DjangoModelFactory):
+	class Meta:
+		model = Category
+		django_get_or_create = {
+			'title',
+			'slug'
+		}
+
+		name = 'Test Category'
+		slug = slugify(name)
+
+class TagFactory(factory.django.DjangoModelFactory):
+	class Meta:
+		model = Tag
+		django_get_or_create = {
+			'title',
+			'slug'
+		}
+
+		name = 'Test Tag'
+		slug = slugify(name)
+
+class BaseAcceptanceTest(LiveServerTestCase):
 	def setUp(self):
 		self.client = Client()
+
+class AdminTest(BaseAcceptanceTest):
+	fixtures = ['users.json']
 
 	def test_Login(self):
 		response = self.client.get('/admin/', follow=True)
 		self.assertEquals(response.status_code, 200)		
-		self.assertTrue(b"Log in" in response.content)
+		self.assertTrue('Log in' in response.content.decode('utf-8'))
 
 		self.client.login(username='josh', password='123')
 
 		response = self.client.get('/admin/', follow=True)
 		self.assertEquals(response.status_code, 200)
-		self.assertTrue(b"Log out" in response.content)
+		self.assertTrue('Log out' in response.content.decode('utf-8'))
 
 	def test_Logout(self):
 		self.client.login(username='josh', password='123')
 
 		response = self.client.get('/admin/', follow=True)
 		self.assertEquals(response.status_code, 200)
-		self.assertTrue(b"Log out" in response.content)
+		self.assertTrue('Log out' in response.content.decode('utf-8'))
 
 		self.client.logout()
 
 		response = self.client.get('/admin/', follow=True)
 		self.assertEquals(response.status_code, 200)
-		self.assertTrue(b"Log in" in response.content)
+		self.assertTrue('Log in' in response.content.decode('utf-8'))
 
 	def test_CreatePost(self):
 		self.client.login(username="josh", password="123")
@@ -40,19 +65,20 @@ class AdminTest(LiveServerTestCase):
 		response = self.client.get('/admin/blog/blog/add', follow=True)
 		self.assertEquals(response.status_code, 200)
 
+		category = CategoryFactory()
+		tag = TagFactory()
+
 		response = self.client.post('/admin/blog/blog/add', {
-				'title':'Test',
+				'title': 'Test',
 				'slug' : 'test',
 				'body' : 'Example body',
 				'posted' : '2015-09-07',
-				'category' : {
-					'title' : 'Example',
-					'slug' : 'example'
-				}
+				'category' : str(category.pk),
+				'tags' : str(tag.pk)
 			}, follow=True)
 
 		self.assertEquals(response.status_code, 200)
-		self.assertTrue(b"added successfully" in response.content)
+		self.assertTrue('added successfully' in response.content.decode('utf-8'))
 
 		posts = Blog.objects.all()
 		self.assertEquals(len(posts), 1)

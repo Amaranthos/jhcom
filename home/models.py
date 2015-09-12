@@ -1,6 +1,5 @@
 from django.db import models
 from django.db.models import permalink
-from django.contrib.sites.models import Site
 
 class Game(models.Model):
 	title = models.CharField(max_length=50, unique=True)
@@ -112,7 +111,6 @@ class Tutorial(models.Model):
 	title = models.CharField(max_length=50, unique=True)
 	slug = models.SlugField(max_length=50, unique=True, default=title)
 	posted = models.DateField(auto_now_add=True)
-	site = models.ForeignKey(Site)
 
 	def __str__(self):
 		return self.title;

@@ -59,3 +59,8 @@ target/
 *.sublime-workspace
 
 users.json
+
+reports/
+htmlcov/
+
+db.sqlite3
