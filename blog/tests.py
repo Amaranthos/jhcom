@@ -6,6 +6,15 @@ import factory
 
 from .models import Blog, Category, Tag
 
+# 	88888888888                                                 88                       
+# 	88                              ,d                          ""                       
+# 	88                              88                                                   
+# 	88aaaaa ,adPPYYba,  ,adPPYba, MM88MMM ,adPPYba,  8b,dPPYba, 88  ,adPPYba, ,adPPYba,  
+# 	88""""" ""     `Y8 a8"     ""   88   a8"     "8a 88P'   "Y8 88 a8P_____88 I8[    ""  
+# 	88      ,adPPPPP88 8b           88   8b       d8 88         88 8PP"""""""  `"Y8ba,   
+# 	88      88,    ,88 "8a,   ,aa   88,  "8a,   ,a8" 88         88 "8b,   ,aa aa    ]8I  
+# 	88      `"8bbdP"Y8  `"Ybbd8"'   "Y888 `"YbbdP"'  88         88  `"Ybbd8"' `"YbbdP"'  
+
 class CategoryFactory(factory.django.DjangoModelFactory):
 	class Meta:
 		model = Category	
@@ -34,32 +43,94 @@ class BaseAcceptanceTest(LiveServerTestCase):
 	def setUp(self):
 		self.client = Client()
 
+# 	       db                88                    88                888888888888                                    
+# 	      d88b               88                    ""                     88                        ,d               
+# 	     d8'`8b              88                                           88                        88               
+# 	    d8'  `8b     ,adPPYb,88 88,dPYba,,adPYba,  88 8b,dPPYba,          88  ,adPPYba, ,adPPYba, MM88MMM ,adPPYba,  
+# 	   d8YaaaaY8b   a8"    `Y88 88P'   "88"    "8a 88 88P'   `"8a         88 a8P_____88 I8[    ""   88    I8[    ""  
+# 	  d8""""""""8b  8b       88 88      88      88 88 88       88         88 8PP"""""""  `"Y8ba,    88     `"Y8ba,   
+# 	 d8'        `8b "8a,   ,d88 88      88      88 88 88       88         88 "8b,   ,aa aa    ]8I   88,   aa    ]8I  
+# 	d8'          `8b `"8bbdP"Y8 88      88      88 88 88       88         88  `"Ybbd8"' `"YbbdP"'   "Y888 `"YbbdP"'  
+
 class AdminTest(BaseAcceptanceTest):
 	fixtures = ['users.json']
 
 	def test_Login(self):
 		response = self.client.get('/admin/', follow=True)
-		self.assertEquals(response.status_code, 200)		
+		self.assertEqual(response.status_code, 200)		
 		self.assertTrue('Log in' in response.content.decode('utf-8'))
 
 		self.client.login(username='josh', password='123')
 
 		response = self.client.get('/admin/', follow=True)
-		self.assertEquals(response.status_code, 200)
+		self.assertEqual(response.status_code, 200)
 		self.assertTrue('Log out' in response.content.decode('utf-8'))
 
 	def test_Logout(self):
 		self.client.login(username='josh', password='123')
 
 		response = self.client.get('/admin/', follow=True)
-		self.assertEquals(response.status_code, 200)
+		self.assertEqual(response.status_code, 200)
 		self.assertTrue('Log out' in response.content.decode('utf-8'))
 
 		self.client.logout()
 
 		response = self.client.get('/admin/', follow=True)
-		self.assertEquals(response.status_code, 200)
+		self.assertEqual(response.status_code, 200)
 		self.assertTrue('Log in' in response.content.decode('utf-8'))
+
+	def test_CreateCategory(self):
+		self.client.login(username="josh", password="123")
+
+		response = self.client.get('/admin/blog/category/add/', follow=True)
+		self.assertEqual(response.status_code, 200)
+
+		response = self.client.post('/admin/blog/category/add/', {
+				'title' : 'Test Category',
+				'slug' : 'test-category',
+			}, follow=True)
+
+		self.assertEqual(response.status_code, 200)
+		self.assertTrue('added successfully' in response.content.decode('utf-8'))
+
+		categories = Category.objects.all()
+		self.assertEqual(len(categories),1)
+
+	def test_EditCategory(self):
+		category = CategoryFactory()
+
+		self.client.login(username="josh", password="123")
+
+		response = self.client.post('/admin/blog/category/' + str(category.pk)+'/', {
+		 		'title': 'Edited Category',
+		 		'slug': 'edited-category',
+		 	}, follow=True)
+		
+		self.assertEqual(response.status_code, 200)
+		self.assertTrue('changed successfully' in response.content.decode('utf-8'))
+
+		categories = Category.objects.all()
+		self.assertEqual(len(categories),1)
+		self.assertEqual(categories[0].title, 'Edited Category')
+		self.assertEqual(categories[0].slug, 'edited-category')
+
+	def test_CreateTag(self):
+		self.client.login(username="josh", password="123")
+
+		response = self.client.get('/admin/blog/tag/add', follow=True)
+		self.assertEqual(response.status_code, 200)
+
+		response = self.client.post('/admin/blog/tag/add/', {
+				'title':'Test Tag',
+				'slug' : 'test-tag',
+			}, follow=True)
+
+		self.assertEqual(response.status_code, 200)
+		self.assertTrue('added successfully' in response.content.decode('utf-8'))
+
+		tags = Tag.objects.all()
+
+		self.assertEqual(len(tags),1)
 
 	def test_CreatePost(self):
 		category = CategoryFactory()
@@ -89,6 +160,17 @@ class AdminTest(BaseAcceptanceTest):
 		self.assertEqual(len(posts), 1)
 
 
+# 	88888888ba  88                            888888888888                          
+# 	88      "8b 88                                 88                        ,d     
+# 	88      ,8P 88                                 88                        88     
+# 	88aaaaaa8P' 88  ,adPPYba,   ,adPPYb,d8         88  ,adPPYba, ,adPPYba, MM88MMM  
+# 	88""""""8b, 88 a8"     "8a a8"    `Y88         88 a8P_____88 I8[    ""   88     
+# 	88      `8b 88 8b       d8 8b       88         88 8PP"""""""  `"Y8ba,    88     
+# 	88      a8P 88 "8a,   ,a8" "8a,   ,d88         88 "8b,   ,aa aa    ]8I   88,    
+# 	88888888P"  88  `"YbbdP"'   `"YbbdP"Y8         88  `"Ybbd8"' `"YbbdP"'   "Y888  
+# 	                            aa,    ,88                                          
+# 	                             "Y8bbdP"                                           
+
 class BlogTest(TestCase):
 	def test_CreatePost(self):
 		
@@ -98,23 +180,34 @@ class BlogTest(TestCase):
 		post.tags.add(tag)
 		
 		posts = Blog.objects.all()
-		self.assertEquals(len(posts),1)
-		self.assertEquals(posts[0], post)
+		self.assertEqual(len(posts),1)
+		self.assertEqual(posts[0], post)
 
-		self.assertEquals(posts[0].title, "Test Post")
-		self.assertEquals(posts[0].slug, "test-post")
-		self.assertEquals(posts[0].body, "Test content")
-		self.assertEquals(posts[0].posted.year, post.posted.year)
-		self.assertEquals(posts[0].posted.month, post.posted.month)
-		self.assertEquals(posts[0].posted.day, post.posted.day)
-		self.assertEquals(posts[0].category.title, 'Test Category')
-		self.assertEquals(posts[0].category.slug, 'test-category')
+		self.assertEqual(posts[0].title, "Test Post")
+		self.assertEqual(posts[0].slug, "test-post")
+		self.assertEqual(posts[0].body, "Test content")
+		self.assertEqual(posts[0].posted.year, post.posted.year)
+		self.assertEqual(posts[0].posted.month, post.posted.month)
+		self.assertEqual(posts[0].posted.day, post.posted.day)
+		self.assertEqual(posts[0].category.title, 'Test Category')
+		self.assertEqual(posts[0].category.slug, 'test-category')
 
 		tags = posts[0].tags.all()
-		self.assertEquals(len(tags), 1)
-		self.assertEquals(tags[0], tag)
-		self.assertEquals(tags[0].title, tag.title)
-		self.assertEquals(tags[0].slug, tag.slug)
+		self.assertEqual(len(tags), 1)
+		self.assertEqual(tags[0], tag)
+		self.assertEqual(tags[0].title, tag.title)
+		self.assertEqual(tags[0].slug, tag.slug)
+
+# 	  ,ad8888ba,                                                                                 888888888888                          
+# 	 d8"'    `"8b              ,d                                                                     88                        ,d     
+# 	d8'                        88                                                                     88                        88     
+# 	88            ,adPPYYba, MM88MMM ,adPPYba,  ,adPPYb,d8  ,adPPYba,  8b,dPPYba, 8b       d8         88  ,adPPYba, ,adPPYba, MM88MMM  
+# 	88            ""     `Y8   88   a8P_____88 a8"    `Y88 a8"     "8a 88P'   "Y8 `8b     d8'         88 a8P_____88 I8[    ""   88     
+# 	Y8,           ,adPPPPP88   88   8PP""""""" 8b       88 8b       d8 88          `8b   d8'          88 8PP"""""""  `"Y8ba,    88     
+# 	 Y8a.    .a8P 88,    ,88   88,  "8b,   ,aa "8a,   ,d88 "8a,   ,a8" 88           `8b,d8'           88 "8b,   ,aa aa    ]8I   88,    
+# 	  `"Y8888Y"'  `"8bbdP"Y8   "Y888 `"Ybbd8"'  `"YbbdP"Y8  `"YbbdP"'  88             Y88'            88  `"Ybbd8"' `"YbbdP"'   "Y888  
+# 	                                            aa,    ,88                            d8'                                              
+# 	                                             "Y8bbdP"                            d8'                                               
 
 class CategoryTest(TestCase):
 	def test_CreateCategory(self):
@@ -122,6 +215,28 @@ class CategoryTest(TestCase):
 		category = CategoryFactory()
 
 		categories = Category.objects.all()
-		self.assertEquals(len(categories),1)
-		self.assertEquals(categories[0].title, "Test Category")
-		self.assertEquals(categories[0].slug, "test-category")
+		self.assertEqual(len(categories),1)
+		self.assertEqual(category, categories[0])
+		self.assertEqual(categories[0].title, "Test Category")
+		self.assertEqual(categories[0].slug, "test-category")
+
+# 	888888888888                      888888888888                          
+# 	     88                                88                        ,d     
+# 	     88                                88                        88     
+# 	     88 ,adPPYYba,  ,adPPYb,d8         88  ,adPPYba, ,adPPYba, MM88MMM  
+# 	     88 ""     `Y8 a8"    `Y88         88 a8P_____88 I8[    ""   88     
+# 	     88 ,adPPPPP88 8b       88         88 8PP"""""""  `"Y8ba,    88     
+# 	     88 88,    ,88 "8a,   ,d88         88 "8b,   ,aa aa    ]8I   88,    
+# 	     88 `"8bbdP"Y8  `"YbbdP"Y8         88  `"Ybbd8"' `"YbbdP"'   "Y888  
+# 	                    aa,    ,88                                          
+# 	                     "Y8bbdP"                                           
+
+class TagTest(TestCase):
+	def test_CreateTag(self):
+		tag = TagFactory()
+
+		tags = Tag.objects.all()
+		self.assertEqual(len(tags), 1)
+		self.assertEqual(tag, tags[0])
+		self.assertEqual(tags[0].title, "Test Tag")
+		self.assertEqual(tags[0].slug, "test-tag")
