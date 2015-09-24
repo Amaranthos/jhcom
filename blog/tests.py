@@ -79,6 +79,8 @@ class AdminTest(BaseAcceptanceTest):
 		self.assertEqual(response.status_code, 200)
 		self.assertTrue('Log in' in response.content.decode('utf-8'))
 
+# Categories
+
 	def test_CreateCategory(self):
 		self.client.login(username="josh", password="123")
 
@@ -102,9 +104,9 @@ class AdminTest(BaseAcceptanceTest):
 		self.client.login(username="josh", password="123")
 
 		response = self.client.post('/admin/blog/category/' + str(category.pk)+'/', {
-		 		'title': 'Edited Category',
-		 		'slug': 'edited-category',
-		 	}, follow=True)
+				'title': 'Edited Category',
+				'slug': 'edited-category',
+			}, follow=True)
 		
 		self.assertEqual(response.status_code, 200)
 		self.assertTrue('changed successfully' in response.content.decode('utf-8'))
@@ -113,6 +115,23 @@ class AdminTest(BaseAcceptanceTest):
 		self.assertEqual(len(categories),1)
 		self.assertEqual(categories[0].title, 'Edited Category')
 		self.assertEqual(categories[0].slug, 'edited-category')
+
+	def test_DeleteCategory(self):
+		category = CategoryFactory()
+
+		self.client.login(username="josh", password="123")
+		
+		response = self.client.post('/admin/blog/category/' + str(category.pk)+'/delete/', {
+				'post': 'yes',
+			}, follow=True)
+
+		self.assertEqual(response.status_code, 200)
+		self.assertTrue('deleted successfully' in response.content.decode('utf-8'))
+
+		categories = Category.objects.all()
+		self.assertEqual(len(categories), 0)
+		
+# Tags
 
 	def test_CreateTag(self):
 		self.client.login(username="josh", password="123")
@@ -132,6 +151,41 @@ class AdminTest(BaseAcceptanceTest):
 
 		self.assertEqual(len(tags),1)
 
+	def test_EditTag(self):
+		tag = TagFactory()
+
+		self.client.login(username="josh", password="123")
+
+		response = self.client.post('/admin/blog/tag/' + str(tag.pk) + '/', {
+				'title': 'Edited Tag',
+				'slug': 'edited-tag',
+			}, follow=True)
+		
+		self.assertEqual(response.status_code, 200)
+		self.assertTrue('changed successfully' in response.content.decode('utf-8'))
+
+		tags = Tag.objects.all()
+		self.assertEqual(len(tags), 1)
+		self.assertEqual(tags[0].title, 'Edited Tag')
+		self.assertEqual(tags[0].slug, 'edited-tag')
+
+	def test_DeleteTag(self):
+		tag = TagFactory()
+
+		self.client.login(username="josh", password="123")
+
+		response = self.client.post('/admin/blog/tag/' + str(tag.pk) + '/delete/', {
+				'post' : 'yes',
+			}, follow=True)
+
+		self.assertEqual(response.status_code, 200)
+		self.assertTrue('deleted successfully' in response.content.decode('utf-8'))
+
+		tags = Tag.objects.all()
+		self.assertEqual(len(tags), 0)
+
+# Posts
+
 	def test_CreatePost(self):
 		category = CategoryFactory()
 		tag = TagFactory()
@@ -140,9 +194,6 @@ class AdminTest(BaseAcceptanceTest):
 
 		response = self.client.get('/admin/blog/blog/add/', follow=True)
 		self.assertEqual(response.status_code, 200)
-
-		category = CategoryFactory()
-		tag = TagFactory()
 
 		response = self.client.post('/admin/blog/blog/add/', {
 				'title': 'Test Post',
@@ -159,6 +210,71 @@ class AdminTest(BaseAcceptanceTest):
 		posts = Blog.objects.all()
 		self.assertEqual(len(posts), 1)
 
+	def test_CreatePostWithoutTag(self):
+		category = CategoryFactory()
+
+		self.client.login(username="josh", password="123")
+
+		response = self.client.get('/admin/blog/blog/add/', follow=True)
+		self.assertEqual(response.status_code, 200)
+
+		response = self.client.post('/admin/blog/blog/add/', {
+				'title' : 'Test Post no tags',
+				'slug' : 'test-post-no-tags',
+				'body' : 'Test content',
+				'posted' : '2015-09-24',
+				'category' : str(category.pk),
+			}, follow=True)
+
+		self.assertEqual(response.status_code, 200)
+		self.assertTrue('added successfully' in response.content.decode('utf-8'))
+
+		posts = Blog.objects.all()
+		self.assertEqual(len(posts), 1)
+
+	def test_EditPost(self):
+		post = PostFactory()
+		category = CategoryFactory()
+
+		tag = TagFactory()
+		post.tags.add(tag)
+
+		self.client.login(username="josh", password="123")
+
+		response = self.client.post('/admin/blog/blog/' + str(post.pk) + '/', {
+				'title' : 'Edited Post',
+				'slug' : 'edited-post',
+				'body' : 'Edited Content',
+				'posted' : '2015-09-24',
+				'category' : str(category.pk),
+				'tags' : str(tag.pk),
+			}, follow=True)
+
+		self.assertEqual(response.status_code, 200)
+		self.assertTrue('changed successfully' in response.content.decode('utf-8'))
+
+		posts = Blog.objects.all()
+		self.assertEqual(len(posts), 1)
+		self.assertEqual(posts[0].title, "Edited Post")
+		self.assertEqual(posts[0].body, "Edited Content")
+
+	def test_DeletePost(self):
+		post = PostFactory()
+
+		posts = Blog.objects.all()
+		self.assertEqual(len(posts), 1)
+
+		self.client.login(username="josh", password="123")
+
+		response = self.client.post('/admin/blog/blog/' + str(post.pk) + '/delete/', {
+				'post':'yes',
+			}, follow=True)
+
+		self.assertEqual(response.status_code, 200)
+		self.assertTrue('deleted successfully' in response.content.decode('utf-8'))
+
+		posts = Blog.objects.all()
+		self.assertEqual(len(posts), 0)
 
 # 	88888888ba  88                            888888888888                          
 # 	88      "8b 88                                 88                        ,d     
