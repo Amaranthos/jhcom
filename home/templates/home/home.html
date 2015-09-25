@@ -1,6 +1,6 @@
 {% extends "base.html"%}
 {%load staticfiles%}
-{% load  markdown_deux_tags %}
+{% load custom_markdown %}
 
 {%block head_title%}
 	Home
@@ -42,7 +42,7 @@ code{
 				<div class="col-md-4">
 					<div class="content">
 						<a href="{{blog.get_absolute_url}}" style="color:#cab974;"><h2>{{blog.title}}</h2></a>
-						<p>{{blog.body|markdown}}</p>
+						<p>{{blog.body|custom_markdown}}</p>
 					</div>
 				</div>
 			{% endif %}

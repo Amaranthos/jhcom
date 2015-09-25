@@ -1,4 +1,5 @@
 {% extends "base.html"%}
+{% load custom_markdown %}
 
 {%block head_title%}
 	{{item.title}}
@@ -28,7 +29,7 @@
 			<div class="col-md-6">
 				<div class="content">
 					<h3>Description</h3>
-					<p>{{item.description}}</p>
+					<p>{{item.description|custom_markdown}}</p>
 				</div>
 			</div>
 
