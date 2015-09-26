@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.utils.text import slugify
 
 import factory
+import markdown2
 
 from .models import Blog, Category, Tag
 
@@ -374,16 +375,169 @@ class AdminTest(BaseAcceptanceTest):
 
 class ViewTest(BaseAcceptanceTest):
 	def test_BlogHome(self):
+		# Create post
 		post = PostFactory(body="Test Content")
 
+		# Create tag
 		tag = TagFactory(title="Test Tag")
 		post.tags.add(tag)
 
+		# Check post saved
 		posts = Blog.objects.all()
 		self.assertEqual(len(posts), 1)
 
+		# Check url
 		response = self.client.get(reverse('blog'))
 		self.assertTrue(response.status_code, 200)
 
+		# Check post content in view
 		self.assertTrue(post.title in response.content.decode('utf-8'))
-		
+		self.assertTrue(markdown2.markdown(post.body) in response.content.decode('utf-8'))
+		self.assertTrue(post.category.title in response.content.decode('utf-8'))
+
+		# Check tag in view
+		tag = posts[0].tags.all()[0]
+		self.assertTrue(tag.title in response.content.decode('utf-8'))
+
+		# Check category in view
+		cat = posts[0].category
+		self.assertTrue(cat.title in response.content.decode('utf-8'))
+
+		# Check date in view
+		self.assertTrue(str(post.posted.year) in response.content.decode('utf-8'))
+		self.assertTrue(post.posted.strftime('%b') in response.content.decode('utf-8'))
+		self.assertTrue(str(post.posted.day) in response.content.decode('utf-8'))
+
+		# Check template
+		self.assertTemplateUsed(response, 'blog/home.html')
+
+	def test_BlogPost(self):
+		# Create post
+		post = PostFactory(body="Test Content")
+
+		# Create tag
+		tag = TagFactory(title="Test Tag")
+		post.tags.add(tag)
+
+		# Check post saved
+		posts = Blog.objects.all()
+		self.assertEqual(len(posts), 1)
+
+		# Check url
+		response = self.client.get(posts[0].get_absolute_url())
+		self.assertTrue(response.status_code, 200)
+
+		# Check post content in view
+		self.assertTrue(post.title in response.content.decode('utf-8'))
+		self.assertTrue(markdown2.markdown(post.body) in response.content.decode('utf-8'))
+		self.assertTrue(post.category.title in response.content.decode('utf-8'))
+
+		# Check tag in view
+		tag = posts[0].tags.all()[0]
+		self.assertTrue(tag.title in response.content.decode('utf-8'))
+
+		# Check date in view
+		self.assertTrue(str(post.posted.year) in response.content.decode('utf-8'))
+		self.assertTrue(post.posted.strftime('%b') in response.content.decode('utf-8'))
+		self.assertTrue(str(post.posted.day) in response.content.decode('utf-8'))
+
+		# Check template
+		self.assertTemplateUsed(response, 'blog/post.html')
+
+	def test_BlogDates(self):
+		post = PostFactory(body="Test Content")
+
+		# Create tag
+		tag = TagFactory(title="Test Tag")
+		post.tags.add(tag)
+
+		# Check post saved
+		posts = Blog.objects.all()
+		self.assertEqual(len(posts), 1)
+
+		# Check url
+		response = self.client.get(reverse('blog-date', args=[post.posted.year, post.posted.month]))
+		self.assertTrue(response.status_code, 200)
+
+		# Check post content in view
+		self.assertTrue(post.title in response.content.decode('utf-8'))
+		self.assertTrue(markdown2.markdown(post.body) in response.content.decode('utf-8'))
+
+		# Check date in view
+		self.assertTrue(str(post.posted.year) in response.content.decode('utf-8'))
+		self.assertTrue(post.posted.strftime('%b') in response.content.decode('utf-8'))
+		self.assertTrue(str(post.posted.day) in response.content.decode('utf-8'))
+
+		# Check template
+		self.assertTemplateUsed(response, 'blog/list.html')
+
+	def test_BlogTag(self):
+		post = PostFactory(body="Test Content")
+
+		# Create tag
+		tag = TagFactory(title="Test Tag")
+		post.tags.add(tag)
+
+		# Check post saved
+		posts = Blog.objects.all()
+		self.assertEqual(len(posts), 1)
+
+		# Check url
+		tag = posts[0].tags.all()[0]
+		response = self.client.get(tag.get_absolute_url())
+		self.assertTrue(response.status_code, 200)
+
+		# Check tag in view
+		self.assertTrue(tag.title in response.content.decode('utf-8'))
+
+		# Check post content in view
+		self.assertTrue(post.title in response.content.decode('utf-8'))
+		self.assertTrue(markdown2.markdown(post.body) in response.content.decode('utf-8'))
+
+		# Check date in view
+		self.assertTrue(str(post.posted.year) in response.content.decode('utf-8'))
+		self.assertTrue(post.posted.strftime('%b') in response.content.decode('utf-8'))
+		self.assertTrue(str(post.posted.day) in response.content.decode('utf-8'))
+
+		# Check template
+		self.assertTemplateUsed(response, 'blog/list.html')
+
+	def test_BlogTagNonExist(self):
+		tagURL = 'tag/test'
+
+		response = self.client.get(tagURL)
+		self.assertEqual(response.status_code, 404)
+
+	def test_BlogCategory(self):
+		post = PostFactory(body="Test Content")
+
+		# Create tag
+		tag = TagFactory(title="Test Tag")
+		post.tags.add(tag)
+
+		# Check post saved
+		posts = Blog.objects.all()
+		self.assertEqual(len(posts), 1)
+
+		# Check url
+		category = posts[0].category
+		response = self.client.get(category.get_absolute_url())
+		self.assertTrue(response.status_code, 200)
+
+		# Check post content in view
+		self.assertTrue(post.title in response.content.decode('utf-8'))
+		self.assertTrue(markdown2.markdown(post.body) in response.content.decode('utf-8'))
+
+		# Check date in view
+		self.assertTrue(str(post.posted.year) in response.content.decode('utf-8'))
+		self.assertTrue(post.posted.strftime('%b') in response.content.decode('utf-8'))
+		self.assertTrue(str(post.posted.day) in response.content.decode('utf-8'))
+
+		# Check template
+		self.assertTemplateUsed(response, 'blog/list.html')
+
+	def test_BlogCategoryNonExist(self):
+		catURL = 'category/test'
+
+		response = self.client.get(catURL)
+		self.assertEqual(response.status_code, 404)

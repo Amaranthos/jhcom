@@ -14,7 +14,3 @@ urlpatterns = [
 	url(r'^web/$', 'home.views.web', name='web'),
 	url(r'^art/$', 'home.views.art', name='art'),
 ]
-
-if settings.DEBUG:
-    urlpatterns += patterns('',
-        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}))

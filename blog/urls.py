@@ -8,7 +8,3 @@ urlpatterns = [
 	url(r'^date/(?P<year>[0-9]{4})/(?P<month>[0-9])/$', 'blog.views.dates', name='blog-date'),
 	url(r'^(?P<id>[0-9]+)/(?P<slug>[-\w\d]+)/$', 'blog.views.post', name='blog-post'),
 ]
-
-if settings.DEBUG:
-    urlpatterns += patterns('',
-        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}))
