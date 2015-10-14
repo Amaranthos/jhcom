@@ -3,7 +3,7 @@ from django.db.models import permalink
 
 class Game(models.Model):
 	title = models.CharField(max_length=50, unique=True)
-	slug = models.SlugField(max_length=50, unique=True, default=title)
+	slug = models.SlugField(max_length=50, unique=True)
 	video = models.URLField()
 	thumbnail = models.ImageField(upload_to = 'home/img/games/thumbnails/')
 	description = models.TextField()
@@ -24,7 +24,7 @@ class Game(models.Model):
 
 class App(models.Model):
 	title = models.CharField(max_length=50, unique=True)
-	slug = models.SlugField(max_length=50, unique=True, default=title)
+	slug = models.SlugField(max_length=50, unique=True)
 	video = models.URLField()
 	thumbnail = models.ImageField(upload_to = 'home/img/apps/thumbnails/')
 	description = models.TextField()
@@ -45,7 +45,7 @@ class App(models.Model):
 
 class Tool(models.Model):
 	title = models.CharField(max_length=50, unique=True)
-	slug = models.SlugField(max_length=50, unique=True, default=title)
+	slug = models.SlugField(max_length=50, unique=True)
 	video = models.URLField()
 	thumbnail = models.ImageField(upload_to = 'home/img/tools/thumbnails/')
 	description = models.TextField()
@@ -66,7 +66,7 @@ class Tool(models.Model):
 
 class Library(models.Model):
 	title = models.CharField(max_length=50, unique=True)
-	slug = models.SlugField(max_length=50, unique=True, default=title)
+	slug = models.SlugField(max_length=50, unique=True)
 	thumbnail = models.ImageField(upload_to = 'home/img/libraries/thumbnails/')
 	description = models.TextField()
 	contributors = models.ManyToManyField('home.Contributor', blank=True)
@@ -109,7 +109,7 @@ class Art(models.Model):
 
 class Tutorial(models.Model):
 	title = models.CharField(max_length=50, unique=True)
-	slug = models.SlugField(max_length=50, unique=True, default=title)
+	slug = models.SlugField(max_length=50, unique=True)
 	posted = models.DateField(auto_now_add=True)
 
 	def __str__(self):

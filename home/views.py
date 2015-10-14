@@ -5,6 +5,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from .models import Game, App, Tool, Library, Website, Tutorial
 from blog.models import Blog
 
+def flatpage(request, url):
+	return render(request, "flatpages/default.html")
+
 def home(request):
 	try:
 		blog = Blog.objects.latest('id')

@@ -6,6 +6,8 @@ urlpatterns = [
 	url(r'', include('home.urls')),
 	url(r'^blog/', include('blog.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    # url(r'^resume/$', 'home.views.flatpage', {'url': '/resume/'}, name='resume')
+     url(r'', include('django.contrib.flatpages.urls')),
 ]
 
 if settings.DEBUG:

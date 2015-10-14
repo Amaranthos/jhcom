@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	<div class="container">
 		<div class="navbar-header">
@@ -46,6 +47,13 @@
 						</li>
 					</ul>
 				</li>
+				{% load flatpages %}
+				{% get_flatpages as flatpages %}
+				{% for flatpage in flatpages %}
+					<li>
+						<a href="{{ flatpage.url }}">{{ flatpage.title }}</a>
+					</li>
+				{% endfor %}
 				<li>
 					<a href="mailto:joshua.hodkinson.42@gmail.com"> <i class="fa fa-envelope-o"></i></a>
 				</li>
