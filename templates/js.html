@@ -41,13 +41,26 @@ window.fbAsyncInit = function() {
 <script src="{% static 'js/readmore.min.js' %}"></script>
 
 <script>
+	$('article').readmore({
+		moreLink: '<a href="#" style="color: #ca9674">More</a>',
+		lessLink: '<a href="#" style="color: #ca9674">Less</a>',
+		collapsedHeight: 400,
 
-	window.onload = function() {
-		$('article').readmore({
-			moreLink: '<a href="#">More</a>',
-			lessLink: '<a href="#">Less</a>',
-			collapsedHeight: 500,
+		afterToggle: function(trigger, element, expanded){
+			var masonry = new Masonry(document.querySelector("#homeContainer"), {
+				itemSelector: '.col-md-4'
+			});	
+		}
+	});
 
+	$(document).ready(function() {
+		var masonry = new Masonry(document.querySelector("#homeContainer"), {
+			itemSelector: '.col-md-4'
 		});
-	}
+
+
+		$('img').addClass('img-responsive');
+	});
 </script>
+
+<script src="{% static 'js/masonry.min.js' %}"></script>
