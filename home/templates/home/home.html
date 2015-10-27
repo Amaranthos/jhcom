@@ -42,49 +42,50 @@ code{
 				<div class="col-md-4">
 					<div class="content">
 						<a href="{{blog.get_absolute_url}}" style="color:#cab974;"><h2>{{blog.title}}</h2></a>
-						<p>{{blog.body|custom_markdown}}</p>
+						<article>
+							<p>{{blog.body|custom_markdown}}</p>
+						</article>
 					</div>
 				</div>
 			{% endif %}
 			{% if tut %}
 				<div class="col-md-4">
-					<div class="content">
+					<div class="content home">
 						<a href="{{tut.get_absolute_url}}" style="color:#cab974;"><h2>{{tut.title}}</h2></a>
-						<p>{{tut.description}}</p>
+						<p>{{tut.description|custom_markdown}}</p>
 					</div>
 				</div>
 			{% endif %}
 			{% if game %}
 				<div class="col-md-4">
-					<div class="content">
+					<div class="content home">
 						<a href="{{game.get_absolute_url}}" style="color:#cab974;"><h2>{{game.title}}</h2></a>
-						<p>{{game.description}}</p>
+						<p>{{game.description|custom_markdown}}</p>
 					</div>
 				</div>			
 			{% endif %}
-		</div>
-		<div class="row">
+	
 			{% if app %}
 				<div class="col-md-4">
-					<div class="content">
+					<div class="content home">
 						<a href="{{app.get_absolute_url}}" style="color:#cab974;"><h2>{{app.title}}</h2></a>
-						<p>{{app.description}}</p>
+						<p>{{app.description|custom_markdown}}</p>
 					</div>
 				</div>
 			{% endif %}
 			{% if tool %}
 				<div class="col-md-4">
-					<div class="content">
+					<div class="content home">
 						<a href="{{tool.get_absolute_url}}" style="color:#cab974;"><h2>{{tool.title}}</h2></a>
-						<p>{{tool.description}}</p>
+						<p>{{tool.description|custom_markdown}}</p>
 					</div>
 				</div>
 			{% endif %}
 			{% if lib %}
 				<div class="col-md-4">
-					<div class="content">
+					<div class="content home">
 						<a href="{{lib.get_absolute_url}}" style="color:#cab974;"><h2>{{lib.title}}</h2></a>
-						<p>{{lib.0.description}}</p>
+						<p>{{lib.description|custom_markdown}}</p>
 					</div>
 				</div>
 			{% endif %}

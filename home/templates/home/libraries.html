@@ -17,9 +17,7 @@
 				{% for item in list %}
 					<div class="col-sm-6 col-md-3">
 						<div class="content">
-							<div class="thumbnail">
-						   		<a href="{{item.get_absolute_url}}"><img src="{% static item.thumbnail.url %}"></a>
-							</div>
+						
 						   	<a class="btn btn-block btn-primary" href="{{item.get_absolute_url}}" role="button"><p style="font-size:larger">{{item.title}}</p></a>
 						</div>
 					</div>

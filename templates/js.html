@@ -37,3 +37,17 @@ window.fbAsyncInit = function() {
 	r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
 	ga('create','UA-60480631-2','auto');ga('send','pageview');
 </script>
+
+<script src="{% static 'js/readmore.min.js' %}"></script>
+
+<script>
+
+	window.onload = function() {
+		$('article').readmore({
+			moreLink: '<a href="#">More</a>',
+			lessLink: '<a href="#">Less</a>',
+			collapsedHeight: 500,
+
+		});
+	}
+</script>

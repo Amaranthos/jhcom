@@ -13,7 +13,7 @@ def blog(request):
 			'categories' : Category.objects.all(),
 			'tags' : Tag.objects.all(),
 			'dates' : posts,
-			'posts' : Blog.objects.all().order_by('posted')[:5]
+			'posts' : Blog.objects.all().order_by('-posted')[:5]
 		})
 
 def post(request, id, slug):

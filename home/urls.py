@@ -12,5 +12,4 @@ urlpatterns = [
 	url(r'^libraries/$', 'home.views.libraries', name='libraries'),
 	url(r'^libraries/(?P<id>[0-9]+)/(?P<slug>[-\w\d]+)/$', 'home.views.library', name='library'),
 	url(r'^web/$', 'home.views.web', name='web'),
-	url(r'^art/$', 'home.views.art', name='art'),
 ]
