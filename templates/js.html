@@ -42,16 +42,7 @@ window.fbAsyncInit = function() {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>
 
 <script>
-
-
-	function Masonry() {	
-		$("#homeContainer").masonry({
-			itemSelector: '.col-md-4'
-		});	
-	}
-
-	function ReadMore() {
-		$('article').readmore({
+	$('article').readmore({
 			speed: 200,
 			moreLink: '<a href="#" style="color: #ca9674">More</a>',
 			lessLink: '<a href="#" style="color: #ca9674">Less</a>',
@@ -60,11 +51,15 @@ window.fbAsyncInit = function() {
 			afterToggle: function(trigger, element, expanded){
 				Masonry();
 			}
+	});
+
+	function Masonry() {	
+		$("#homeContainer").masonry({
+			itemSelector: '.col-md-4'
 		});	
 	}
 
 	$(document).ready(function() {
-		ReadMore();
 		Masonry();
 		$('img').addClass('img-responsive');
 	});
