@@ -24,14 +24,37 @@ code{
 		<div class="jumbotron">
 			<div class="container">
 				<div class "row">
-					<img class ="col-xs-12 col-md-4" src="{% static 'home/img/me.jpg' %}"/>
-					<div class="col-xs-12 col-md-8">
+					{# <img class ="col-xs-12 col-md-4" src="{% static 'home/img/me.jpg' %}"/> #}
+					<div class="col-md-4">
+						<h2><span class="blue">P</span>rogrammer</h2>
+						<h3>&nbsp;&nbsp;<span class="blue">// </span>Games</h3>
+						<h3>&nbsp;&nbsp;<span class="blue">// </span>Tools</h3>
+						<h3>&nbsp;&nbsp;<span class="blue">// </span>Web</h3>
 						<code class="prettyprint code">
 							<pre>module Game;<br><br>import std.stdio;<br><br>void main() {<br>&nbsp;&nbsp;&nbsp;&nbsp;writeln("Hello World!");<br>}</pre>
 						</code>
-						<p id="description" style="font-size:larger">
-							Hello, My name is Joshua Hodkinson, and I use this site to share and communicate my progress as a student game programmer. I will post games I make, code snippets I have written, tools I have designed and anything else I deem relevant or useful on my journey. I am fluent writing in C#, confident in C++ and D. Recently I have also learnt python and django which I used to build this site. I am very comfortable working in Unity but otherwise don't try to limit myself to any particular development environment. My aim is to make other peoples' jobs easier, the tools that I use to achieve this matter less than the time I save those people. I am happy to give any problem a go and welcome any feedback that will help me become a better programmer.
-						</p>
+					</div>
+					<div class="col-md-4">
+						<h2><span class="blue">L</span>anguages</h2>
+						<h3>&nbsp;&nbsp;<span class="blue">// </span>D</h3>
+						<h3>&nbsp;&nbsp;<span class="blue">// </span>C++</h3>
+						<h3>&nbsp;&nbsp;<span class="blue">// </span>C#</h3>
+						<h3>&nbsp;&nbsp;<span class="blue">// </span>Python</h3>
+						<h3>&nbsp;&nbsp;<span class="blue">// </span>PHP</h3>
+						<h3>&nbsp;&nbsp;<span class="blue">// </span>Javascript</h3>
+						<h3>&nbsp;&nbsp;<span class="blue">// </span>HTML</h3>
+						<h3>&nbsp;&nbsp;<span class="blue">// </span>CSS</h3>
+					</div>
+					<div class="col-md-4">
+						<h2><span class="blue">S</span>oftware</h2>
+						<h3>&nbsp;&nbsp;<span class="blue">// </span>Sublime Text</h3>
+						<h3>&nbsp;&nbsp;<span class="blue">// </span>Git</h3>
+						<h3>&nbsp;&nbsp;<span class="blue">// </span>Visual Studio</h3>
+						<h3>&nbsp;&nbsp;<span class="blue">// </span>Unity</h3>
+						<h3>&nbsp;&nbsp;<span class="blue">// </span>Cgywin</h3>
+						<h3>&nbsp;&nbsp;<span class="blue">// </span>Google Drive</h3>
+						<h3>&nbsp;&nbsp;<span class="blue">// </span>Google Sheets</h3>
+						<h3>&nbsp;&nbsp;<span class="blue">// </span>Gimp</h3>
 					</div>
 				</div>
 			</div>
@@ -41,7 +64,7 @@ code{
 			{% if blog %}
 				<div class="col-md-4">
 					<div class="content">
-						<a href="{{blog.get_absolute_url}}" style="color:#cab974;"><h2>{{blog.title}}</h2></a>
+						<a href="{{blog.get_absolute_url}}"><h2>{{blog.title}}</h2></a>
 						<article>
 							<p>{{blog.body|custom_markdown}}</p>
 						</article>
@@ -51,7 +74,7 @@ code{
 			{% if tut %}
 				<div class="col-md-4">
 					<div class="content home">
-						<a href="{{tut.get_absolute_url}}" style="color:#cab974;"><h2>{{tut.title}}</h2></a>
+						<a href="{{tut.get_absolute_url}}"><h2>{{tut.title}}</h2></a>
 						<p>{{tut.description|custom_markdown}}</p>
 					</div>
 				</div>
@@ -59,7 +82,7 @@ code{
 			{% if game %}
 				<div class="col-md-4">
 					<div class="content home">
-						<a href="{{game.get_absolute_url}}" style="color:#cab974;"><h2>{{game.title}}</h2></a>
+						<a href="{{game.get_absolute_url}}"><h2>{{game.title}}</h2></a>
 						<article>
 							<p>{{game.description|custom_markdown}}</p>
 						</article>
@@ -70,7 +93,7 @@ code{
 			{% if app %}
 				<div class="col-md-4">
 					<div class="content home">
-						<a href="{{app.get_absolute_url}}" style="color:#cab974;"><h2>{{app.title}}</h2></a>
+						<a href="{{app.get_absolute_url}}"><h2>{{app.title}}</h2></a>
 						<article>
 							<p>{{app.description|custom_markdown}}</p>
 						</article>
@@ -80,7 +103,7 @@ code{
 			{% if tool %}
 				<div class="col-md-4">
 					<div class="content home">
-						<a href="{{tool.get_absolute_url}}" style="color:#cab974;"><h2>{{tool.title}}</h2></a>
+						<a href="{{tool.get_absolute_url}}"><h2>{{tool.title}}</h2></a>
 						<article>
 							<p>{{tool.description|custom_markdown}}</p>
 						</article>
@@ -90,7 +113,7 @@ code{
 			{% if lib %}
 				<div class="col-md-4">
 					<div class="content home">
-						<a href="{{lib.get_absolute_url}}" style="color:#cab974;"><h2>{{lib.title}}</h2></a>
+						<a href="{{lib.get_absolute_url}}"><h2>{{lib.title}}</h2></a>
 						<article>
 							<p>{{lib.description|custom_markdown}}</p>
 						</article>

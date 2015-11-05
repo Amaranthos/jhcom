@@ -1,78 +1,77 @@
 body {
-	background-color: #526685;
+	background-color: #1b1b1b;
 	color: rgba(255, 255, 255, 0.7);
+	font-family: 'Orbitron', sans-serif;
 }
 
 .h1, .h2, .h3, h1, h2, h3 {
 	margin: 10px 5px;
 }
 
-a {
-	color:#cab974;
-}
-
 p {
 	margin: 5px;
+	font-family: 'Play', sans-serif;
 }
 
 .container .jumbotron {
 	border-radius: 0;
 }
 
+pre {
+	background-color: rgba(255, 255, 255, 0.7);
+}
+
 .jumbotron {
 	margin: 78px 5px 15px;
-	background-color: #213758;
+	background-color: #313131;
+}
+
+.dropdown-menu>li>a:hover{
+	background-color: #64B5F6;
 }
 
 .navbar-inverse {
 	background-image: none !important;
-	background-color: #102340;
-	border-color: #102340;
+	background-color: #121212;
+	border-color: #121212;
 }
 
-.navbar-inverse .navbar-brand {
-	color: #ca9674;
-}
-
-.navbar-inverse .navbar-nav>li>a {
-	color: #cab974;
+.navbar-inverse .navbar-nav>li>a:first-letter {
+	color: #64B5F6;
 }
 
 .navbar-inverse .navbar-toggle {
-	border-color: #cab974;
+	border-color: #64B5F6;
+	border-radius: 0px;
 }
 
 .navbar-inverse .navbar-toggle .icon-bar {
-	background-color: #ca9674;
+	background-color: #64B5F6;
 }
 
 .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
-	color: #cab974;
+	color: #FFFFFF;
+}
+
+.navbar-inverse .navbar-nav .open .dropdown-menu>li>a:first-letter{
+	color: #64B5F6;
+}
+
+.navbar-inverse .navbar-nav .open .dropdown-menu>li>a:hover:first-letter{
+	color: #FFFFFF;
 }
 
 .dropdown-menu {
-	background-color: #102340;
-	color: #cab974;
+	background-color: #121212;
 }
 
-.dropdown-menu>li>a {
-	color: #cab974;
-}
 
 .content {
 	margin: 15px 5px;
 	padding: 10px;
-	background-color: #213758;
+	background-color: #313131;
 	color: rgba(255, 255, 255, 0.7);
 	font-size: larger;
-}
-
-.content>ul>li>a {
-	color: #cab974;
-}
-
-.content>h1>a{
-	color: #cab974;	
 }
 
 .btn .btn-block .btn-primary {
@@ -83,10 +82,10 @@ p {
 	width: 100% !important;
 }
 
-/*.footer {
-	width: 100%;
-	position: fixed;
-	bottom: 0px;
-	background-color: #102340;
-	padding-top: 10px;
-}*/
+.blue {
+	color: #64B5F6 !important;
+}
+
+.btn {
+	border-radius: 0px;
+}
